@@ -6,6 +6,22 @@ const findAllProduct = async () => {
   return product;
 };
 
+const findByIdProduct = async (id) => {
+  const product = await prisma.product.findMany({
+    where: { id: parseInt(id) },
+  });
+
+  return product;
+};
+
+const findByNameProduct = async (name) => {
+  const product = await prisma.product.findMany({
+    where: { name: name },
+  });
+
+  return product;
+};
+
 const createProduct = async (newProduct) => {
   const product = await prisma.product.create({
     data: {
@@ -37,6 +53,8 @@ const deleteProduct = async (id) => {
 
 module.exports = {
   findAllProduct,
+  findByIdProduct,
+  findByNameProduct,
   createProduct,
   updateProduct,
   deleteProduct,

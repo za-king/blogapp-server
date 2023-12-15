@@ -1,5 +1,7 @@
 const {
   findAllProduct,
+  findByIdProduct,
+  findByNameProduct,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -7,6 +9,18 @@ const {
 
 const getAllProducts = async () => {
   const product = await findAllProduct();
+
+  return product;
+};
+
+const getByIdProducts = async (id) => {
+  const product = await findAllProduct(id);
+
+  return product;
+};
+
+const getByNameProducts = async (name) => {
+  const product = await findAllProduct(name);
 
   return product;
 };
@@ -35,6 +49,8 @@ const deleteProductById = async (id) => {
 
 module.exports = {
   getAllProducts,
+  getByIdProducts,
+  getByNameProducts,
   postOneProduct,
   putProductById,
   deleteProductById,
