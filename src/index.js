@@ -24,6 +24,9 @@ app.use("/product", productController);
 //User
 const userController = require("./user/user.controller");
 app.use("/user", userController);
+//Category
+const categoryController = require("./category/category.controller");
+app.use("/category", categoryController);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
