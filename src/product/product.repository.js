@@ -9,6 +9,7 @@ const findAllProduct = async () => {
 const findByIdProduct = async (id) => {
   const product = await prisma.product.findMany({
     where: { id: parseInt(id) },
+    include: { category: true, User: true },
   });
 
   return product;

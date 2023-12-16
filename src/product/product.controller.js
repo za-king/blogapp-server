@@ -11,17 +11,22 @@ const {
 const { isAuth } = require("../middleware/isAuth.js");
 const router = express.Router();
 
-router.get("/", isAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const products = await getAllProducts();
 
-    res.send({ status: "succes ", message: "get all product", data: products });
+    res.send({
+      status: "succes ",
+      message: "get all product",
+      length: products.length,
+      data: products,
+    });
   } catch (error) {
     res.send({ status: "error ", message: error });
   }
 });
 
-router.get("/:id", isAuth, async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const products = await getByIdProducts(id);
@@ -44,11 +49,19 @@ router.get("/", isAuth, async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const newProduct = req.body;
+  try {
+    const newProduct = req.body;
 
-  const product = await postOneProduct(newProduct);
+    const product = await postOneProduct(newProduct);
 
-  res.status(201).send({ message: "create succes", data: product });
+    res.status(201).send({
+      status: "success",
+      message: "create product succes",
+      data: product,
+    });
+  } catch (error) {
+    res.send({ status: "error ", message: error });
+  }
 });
 
 router.put("/:id", async (req, res) => {

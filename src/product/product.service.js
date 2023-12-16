@@ -14,13 +14,13 @@ const getAllProducts = async () => {
 };
 
 const getByIdProducts = async (id) => {
-  const product = await findAllProduct(id);
+  const product = await findByIdProduct(id);
 
   return product;
 };
 
 const getByNameProducts = async (name) => {
-  const product = await findAllProduct(name);
+  const product = await findByNameProduct(name);
 
   return product;
 };
