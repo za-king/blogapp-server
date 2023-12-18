@@ -31,7 +31,11 @@ router.get("/:id", async (req, res) => {
   try {
     const products = await getByIdProducts(id);
 
-    res.send({ status: "succes ", message: "get all product", data: products });
+    res.send({
+      status: "succes ",
+      message: "get byid product",
+      data: products,
+    });
   } catch (error) {
     res.send({ status: "error ", message: error });
   }
