@@ -1,4 +1,5 @@
 const prisma = require("../db");
+const { v4: uuidv4 } = require("uuid");
 
 const findAllProduct = async () => {
   const product = await prisma.product.findMany();
@@ -31,8 +32,11 @@ const createProduct = async (newProduct) => {
       description: newProduct.description,
       rating: newProduct.rating,
       image: newProduct.image,
-      stock: 100,
-      category: {},
+      stock: newProduct.stock,
+      userId: 1,
+      User: { id: 1 },
+      categoryId: 1,
+      category: { id: 1 },
     },
   });
 
