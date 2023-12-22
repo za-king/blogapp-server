@@ -11,7 +11,7 @@ const findAllUser = async () => {
 const findByIdUser = async (id) => {
   const user = await prisma.user.findMany({
     where: { id: id },
-    include: { profile: true, product: true },
+    include: { profile: true, products: true },
   });
 
   return user;

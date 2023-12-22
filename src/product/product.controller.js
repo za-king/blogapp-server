@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
 
     const product = await postOneProduct(newProduct);
 
-    res.status(201).send({
+    res.send({
       status: "success",
       message: "create product succes",
       data: product,

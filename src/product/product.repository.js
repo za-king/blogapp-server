@@ -9,8 +9,8 @@ const findAllProduct = async () => {
 
 const findByIdProduct = async (id) => {
   const product = await prisma.product.findMany({
-    where: { id: parseInt(id) },
-    include: { category: true, User: true },
+    where: { id: id },
+    include: { category: true, user: true },
   });
 
   return product;
@@ -25,18 +25,17 @@ const findByNameProduct = async (name) => {
 };
 
 const createProduct = async (newProduct) => {
+  const imageRandom = uuidv4();
   const product = await prisma.product.create({
     data: {
       name: newProduct.name,
       price: newProduct.price,
       description: newProduct.description,
       rating: newProduct.rating,
-      image: newProduct.image,
+      image: `https://picsum.photos/400/400?random=${imageRandom}`,
       stock: newProduct.stock,
-      userId: 1,
-      User: { id: 1 },
-      categoryId: 1,
-      category: { id: 1 },
+      userId: newProduct.userId,
+      categoryId: newProduct.categoryId,
     },
   });
 

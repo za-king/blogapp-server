@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const user = await getByIdUser(parseInt(id));
+    const user = await getByIdUser(id);
 
     res.send({ message: "succes", data: user });
   } catch (error) {

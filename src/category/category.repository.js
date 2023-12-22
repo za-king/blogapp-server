@@ -8,7 +8,7 @@ const findAllCategory = async () => {
 
 const findByIdCategory = async (id) => {
   const category = await prisma.category.findMany({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
 
   return category;
@@ -26,7 +26,7 @@ const createCategory = async (name) => {
 
 const deleteCategory = async (id) => {
   const category = await prisma.category.delete({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
 
   return category;

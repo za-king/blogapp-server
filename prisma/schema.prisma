@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Category {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid())
   name      String
   products  Product[]
   createdAt DateTime  @default(now())
@@ -16,12 +16,12 @@ model Category {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
+  id           String    @id @default(uuid())
   email        String    @unique
   password     String
   image        String
   role         Role
-  product      Product[]
+  products     Product[]
   profile      Profile?
   refreshToken String
   createdAt    DateTime  @default(now())
@@ -33,29 +33,31 @@ model Profile {
   name    String
   address String
   phone   Int
-  userId  Int    @unique
+  userId  String @unique
   user    User   @relation(fields: [userId], references: [id])
 }
 
 model Product {
-  id                Int                @id @default(autoincrement())
+  id                String             @id @default(uuid())
   name              String
   price             Float
   description       String
   rating            Int
   image             String
   stock             Int
-  categoryId        Int
-  category          Category           @relation(fields: [categoryId], references: [id])
-  userId            Int
-  User              User               @relation(fields: [userId], references: [id])
+  categoryId        String?
+  category          Category?          @relation(fields: [categoryId], references: [id])
+  userId            String?
+  user              User?              @relation(fields: [userId], references: [id])
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   transactionsItems TransactionsItem[]
+
+  @@map("products")
 }
 
 model Transaction {
-  id                Int                 @id @default(autoincrement())
+  id                String              @id
   total             Int
   status            transactions_status
   customerName      String
@@ -66,21 +68,25 @@ model Transaction {
   createdAt         DateTime?           @default(now())
   updatedAt         DateTime?           @updatedAt
   transactionsItems TransactionsItem[]
+
+  @@map("transactions")
 }
 
 model TransactionsItem {
-  id            String
+  id            String      @id
   product_name  String
   price         Int
   quantity      Int
   createdAt     DateTime?   @default(now())
   updatedAt     DateTime?   @updatedAt
-  transactionId Int
-  transactions  Transaction @relation(fields: [transactionId], references: [id])
-  productId     Int
-  products      Product     @relation(fields: [productId], references: [id])
+  transactionId String
+  transactions  Transaction @relation(fields: [transactionId], references: [id], onUpdate: Restrict, map: "transactions_items_ibfk_1")
+  productId     String
+  products      Product     @relation(fields: [productId], references: [id], onUpdate: Restrict, map: "transactions_items_ibfk_2")
 
-  @@id([productId, transactionId])
+  @@index([productId], map: "productId")
+  @@index([transactionId], map: "transactionId")
+  @@map("transactionsItems")
 }
 
 enum transactions_status {
