@@ -1,7 +1,9 @@
 const prisma = require("../db");
 
 const findAllCategory = async () => {
-  const category = await prisma.category.findMany();
+  const category = await prisma.category.findMany({
+    include: { products: true },
+  });
 
   return category;
 };
@@ -9,6 +11,7 @@ const findAllCategory = async () => {
 const findByIdCategory = async (id) => {
   const category = await prisma.category.findMany({
     where: { id: id },
+    include: { products: true },
   });
 
   return category;

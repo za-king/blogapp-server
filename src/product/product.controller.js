@@ -41,12 +41,16 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/", isAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   const { name } = req.body;
   try {
     const products = await getByNameProducts(name);
 
-    res.send({ status: "succes ", message: "get all product", data: products });
+    res.send({
+      status: "succes ",
+      message: "get byname product",
+      data: products,
+    });
   } catch (error) {
     res.send({ status: "error ", message: error });
   }
