@@ -26,6 +26,36 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/name/:name", async (req, res) => {
+  const { name } = req.params;
+  try {
+    const products = await getByNameProducts(name);
+
+    res.send({
+      status: "succes",
+      message: "get byname product",
+      data: products,
+    });
+  } catch (error) {
+    res.send({ status: "error ", message: error });
+  }
+});
+
+router.get("/search", async (req, res) => {
+  const searchTerm = req.query.name;
+  try {
+    const products = await getByNameProducts(searchTerm);
+
+    res.send({
+      status: "succes",
+      message: "get query product",
+      data: products,
+    });
+  } catch (error) {
+    res.send({ status: "error ", message: error });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -34,21 +64,6 @@ router.get("/:id", async (req, res) => {
     res.send({
       status: "succes ",
       message: "get byid product",
-      data: products,
-    });
-  } catch (error) {
-    res.send({ status: "error ", message: error });
-  }
-});
-
-router.get("/", async (req, res) => {
-  const { name } = req.body;
-  try {
-    const products = await getByNameProducts(name);
-
-    res.send({
-      status: "succes ",
-      message: "get byname product",
       data: products,
     });
   } catch (error) {

@@ -3,6 +3,7 @@ const express = require("express");
 const {
   getAllCategory,
   getByIdCategory,
+  getByNameCategory,
   postOneCategory,
   deleteOneCategory,
 } = require("./category.service");
@@ -29,6 +30,20 @@ router.get("/:id", async (req, res) => {
     res.send({
       status: "error",
       message: "get by id",
+      data: category,
+    });
+  } catch (error) {
+    res.send({ status: "error", message: error });
+  }
+});
+
+router.get("/:name/name", async (req, res) => {
+  const { name } = req.params;
+  try {
+    const category = await getByNameCategory(name);
+    res.send({
+      status: "succes",
+      message: "get by name",
       data: category,
     });
   } catch (error) {

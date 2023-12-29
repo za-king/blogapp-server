@@ -17,6 +17,15 @@ const findByIdCategory = async (id) => {
   return category;
 };
 
+const findByNameCategory = async (name) => {
+  const category = await prisma.category.findMany({
+    where: { name: name },
+    include: { products: true },
+  });
+
+  return category;
+};
+
 const createCategory = async (name) => {
   const category = await prisma.category.create({
     data: {
@@ -38,6 +47,7 @@ const deleteCategory = async (id) => {
 module.exports = {
   findAllCategory,
   findByIdCategory,
+  findByNameCategory,
   createCategory,
   deleteCategory,
 };
