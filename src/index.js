@@ -29,7 +29,7 @@ const categoryController = require("./category/category.controller");
 app.use("/category", categoryController);
 //Transaction
 const transactionController = require("./transaction/transaction.controller");
-app.use("/transaction", transactionController);
+app.use("/transactions", transactionController);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

@@ -1,3 +1,5 @@
-export const PENDING_PAYMENT = "PENDING_PAYMENT";
-export const PAID = "PAID";
-export const CANCELED = "CANCELED";
+const PENDING_PAYMENT = "PENDING_PAYMENT";
+const PAID = "PAID";
+const CANCELED = "CANCELED";
+
+module.exports = { PENDING_PAYMENT, PAID, CANCELED };

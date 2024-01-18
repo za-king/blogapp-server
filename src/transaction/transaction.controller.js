@@ -1,6 +1,16 @@
 const express = require("express");
-
+const {
+  validateTransaction,
+  validateTransactionStatus,
+} = require("./transaction.validation");
+const { catchAsync } = require("../utils/catch.async.js");
 const router = express.Router();
+
+router.post("/", async (req, res) => {
+  const { products, customer_name, customer_email } = req.body;
+
+  res.send({ status: "succes", message: products });
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -11,8 +21,6 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:transaction_id", async (req, res) => {});
-
-router.post("/", async (req, res) => {});
 
 router.put("/:transaction_id", async (req, res) => {});
 

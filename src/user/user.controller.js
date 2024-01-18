@@ -100,7 +100,7 @@ router.post("/login", async (req, res) => {
 
 //POSTLOGOUT_USER
 router.post("/logout", (_req, res) => {
-  res.clearCookie("refreshtoken");
+  res.clearCookie("refreshToken");
   return res.send({
     message: "user logout",
   });
@@ -112,27 +112,27 @@ router.post("/refresh_token", async (req, res) => {
   const token = await req.cookies.refreshToken;
 
   if (!token) {
-    return res.send({ accestoken: "1" });
+    return res.send({ message: "no token" });
   }
   let payload = null;
 
   try {
     payload = jwt.verify(token, `${process.env.REFRESH_TOKEN_SECRET}`);
   } catch (error) {
-    res.send({ accestoken: " 2" });
+    res.send({ error });
   }
 
   // Token is valid
   const user = await getByIdUser(payload.userId);
 
-  if (!user) return res.send({ accestoken: "3 " });
-  if (user[0]?.refreshToken !== token) {
-    console.log(user[0]?.refreshToken);
-    console.log(token);
-    return res.send({ accestoken: "4 " });
+  if (!user) return res.send({});
+  if (user[0].refreshToken !== token) {
+    // console.log(user[0]?.refreshToken);
+
+    return res.send({});
   }
-  const accessToken = createAccessToken(user.id);
-  const refreshToken = createRefreshToken(user.id);
+  const accessToken = createAccessToken(user[0].id);
+  const refreshToken = createRefreshToken(user[0].id);
   postTokenByEmailUser(user[0].email, refreshToken);
   sendRefreshToken(res, refreshToken);
   return res.send({ accesstoken: accessToken });

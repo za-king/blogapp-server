@@ -1,4 +1,4 @@
-export const reformTransaction = (transaction) => {
+const reformTransaction = (transaction) => {
   return {
     id: transaction.id,
     total: transaction.total,
@@ -17,3 +17,5 @@ export const reformTransaction = (transaction) => {
     })),
   };
 };
+
+module.exports = { reformTransaction };

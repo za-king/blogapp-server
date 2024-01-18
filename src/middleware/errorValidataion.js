@@ -1,6 +1,6 @@
-import { validationResult } from "express-validator";
+const { validationResult } = require("express-validator");
 
-export const errorValidation = (req, res, next) => {
+const errorValidation = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -11,3 +11,5 @@ export const errorValidation = (req, res, next) => {
   }
   next();
 };
+
+module.exports = { errorValidation };
